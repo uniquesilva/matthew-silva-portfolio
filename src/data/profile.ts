@@ -1,10 +1,16 @@
 export const credibility = [
-  "AI Products",
-  "APIs",
-  "Automation",
-  "Web",
+  "AI Product Development",
+  "Web Applications",
   "iOS",
-  "Blockchain",
+  "APIs",
+  "MCP",
+  "PostgreSQL",
+  "OpenAI",
+  "Solana",
+  "USDC",
+  "Railway",
+  "Authentication",
+  "Workflow Automation",
 ] as const;
 
 export const buildSteps = [

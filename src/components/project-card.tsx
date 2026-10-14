@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ProjectLinks } from "@/components/project-links";
 import type { Project } from "@/data/projects";
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
@@ -31,6 +32,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
               </li>
             ))}
           </ul>
+          <ProjectLinks project={project} />
         </div>
         <div className="flex flex-col border-t border-line pt-6 lg:col-span-4 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8">
           <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">Role</p>

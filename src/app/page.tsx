@@ -3,7 +3,16 @@ import { Container } from "@/components/container";
 import { ProfileLinks } from "@/components/profile-links";
 import { ProjectCard } from "@/components/project-card";
 import { aboutParagraphs, buildSteps, credibility, focusAreas, skillGroups } from "@/data/profile";
-import { HEADLINE, LOCATION, RESUME_URL, ROLE_LINE, SITE_NAME, SUBHEADLINE } from "@/data/site";
+import {
+  EMAIL,
+  HEADLINE,
+  LINKEDIN_URL,
+  LOCATION,
+  RESUME_URL,
+  ROLE_LINE,
+  SITE_NAME,
+  SUBHEADLINE,
+} from "@/data/site";
 import { getProjects } from "@/lib/projects";
 
 export default function Home() {
@@ -36,7 +45,7 @@ export default function Home() {
             </Link>
             <ProfileLinks />
           </div>
-          <ul className="mt-14 grid grid-cols-2 gap-y-1 border-y border-line py-2 sm:grid-cols-3 lg:grid-cols-6">
+          <ul className="mt-14 grid grid-cols-2 gap-y-1 border-y border-line py-2 sm:grid-cols-3 lg:grid-cols-4">
             {credibility.map((item) => (
               <li key={item} className="px-1 py-3 text-sm text-ink-soft">
                 {item}
@@ -179,8 +188,43 @@ export default function Home() {
               <h2 className="mt-3 max-w-[10ch] font-serif text-[clamp(2.5rem,6vw,3.75rem)] leading-[1.02] tracking-tight text-ink">
                 Let’s build something useful.
               </h2>
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-soft">
+                Hiring for AI product, technical product, solutions engineering, or product
+                engineering?
+              </p>
+              <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-1">
+                <li>
+                  <a
+                    href={`mailto:${EMAIL}`}
+                    className="inline-flex min-h-11 items-center text-sm text-ink underline decoration-line underline-offset-4 hover:decoration-accent"
+                  >
+                    Email
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={LINKEDIN_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-11 items-center text-sm text-ink underline decoration-line underline-offset-4 hover:decoration-accent"
+                  >
+                    LinkedIn
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={RESUME_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-11 items-center text-sm text-ink underline decoration-line underline-offset-4 hover:decoration-accent"
+                  >
+                    Resume
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                </li>
+              </ul>
               <p className="mt-5 text-base text-ink-soft">{LOCATION}</p>
-              <ProfileLinks className="mt-6" />
             </div>
             <aside className="lg:col-span-5">
               <div className="rounded-3xl border border-line bg-card p-6 sm:p-8">

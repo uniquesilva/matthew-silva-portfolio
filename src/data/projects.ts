@@ -16,6 +16,20 @@ export type Challenge = {
   response: string;
 };
 
+export type PublicDemo = {
+  label: string;
+  href: string;
+};
+
+/** Image files belong in public/projects/<slug>/ and are referenced from the site root. */
+export type ProjectScreenshot = {
+  src: string;
+  alt: string;
+  caption?: string;
+  width: number;
+  height: number;
+};
+
 export type Project = {
   slug: string;
   name: string;
@@ -28,11 +42,22 @@ export type Project = {
   overview: string;
   problem: string;
   roleDetail: string;
+  responsibilities: string[];
   built: string[];
+  architectureSummary: string;
   architecture: FlowStep[];
   challenges: Challenge[];
   learned: string[];
   statusDetail: string;
+  distribution?: string;
+  liveUrl?: string;
+  liveNote?: string;
+  demoUrl?: string;
+  githubUrl?: string;
+  proofUrl?: string;
+  testflightUrl?: string;
+  publicDemos?: PublicDemo[];
+  screenshots?: ProjectScreenshot[];
 };
 
 export const projects: Project[] = [
@@ -44,16 +69,18 @@ export const projects: Project[] = [
     role: "Founder / Product Builder / Lead Developer",
     status: "Beta",
     technologies: [
+      "SwiftUI",
       "Swift",
       "iOS",
       "Apple Sign In",
+      "Backend sessions",
       "PostgreSQL",
       "Railway",
       "REST APIs",
       "Authentication",
       "TestFlight",
     ],
-    cardTechnologies: ["Swift", "iOS", "PostgreSQL", "Railway", "REST"],
+    cardTechnologies: ["SwiftUI", "Apple Sign In", "PostgreSQL", "Railway", "REST"],
     outcomes: [
       "Authenticated iOS client distributed through TestFlight",
       "Cloud-backed wardrobe data on PostgreSQL",
@@ -64,22 +91,34 @@ export const projects: Project[] = [
     problem:
       "Outfit planning is usually split across a closet, a camera roll, and memory. A useful product has to remember what a person owns, help them put outfits together, and still be there the next time they open the app. That means an account, persistent cloud data, and a model that can grow into social discovery and exchange.",
     roleDetail:
-      "I took Woredrobe from concept through a TestFlight build. I owned the product decisions, the Swift iOS client, Apple Sign In, the REST API, PostgreSQL persistence, and deployment of the backend on Railway.",
-    built: [
-      "Swift iOS client for wardrobe and outfit planning",
-      "Apple Sign In authentication",
-      "REST API for wardrobe, social, and marketplace data",
-      "PostgreSQL persistence so records live beyond the device",
-      "Social discovery features",
-      "Marketplace architecture for item exchange",
-      "Railway deployment for the backend",
-      "TestFlight distribution for the iOS build",
+      "I took Woredrobe from concept through a TestFlight build. I owned the product decisions, the SwiftUI iOS client, Apple Sign In, backend sessions, the REST API, PostgreSQL persistence, and deployment of the backend on Railway.",
+    responsibilities: [
+      "Product direction",
+      "UX",
+      "Frontend development",
+      "Backend development",
+      "API integrations",
+      "QA",
+      "Deployment",
     ],
+    distribution: "TestFlight beta",
+    built: [
+      "SwiftUI iOS client for wardrobe and outfit planning",
+      "Apple Sign In authentication",
+      "Backend sessions for signed-in access",
+      "REST API for wardrobe, social, and marketplace data",
+      "PostgreSQL cloud persistence",
+      "Social discovery",
+      "Marketplace infrastructure",
+      "Railway deployment for the backend",
+      "TestFlight beta distribution",
+    ],
+    architectureSummary: "iOS client → REST API → PostgreSQL → Railway",
     architecture: [
       {
         title: "iOS client",
         detail:
-          "Swift app for wardrobe management, outfit planning, and the social surfaces.",
+          "SwiftUI app for wardrobe management, outfit planning, and the social surfaces.",
       },
       {
         title: "Apple Sign In",
@@ -132,6 +171,36 @@ export const projects: Project[] = [
       "Marketplace and social features depend on a stable identity model first.",
       "TestFlight forces production-shaped decisions while the product is still in beta.",
     ],
+    screenshots: [
+      {
+        src: "/projects/woredrobe/today-dashboard.jpg",
+        alt: "Woredrobe home screen with a Good Morning greeting, closet and calendar shortcuts, and a prompt to log outfits",
+        caption: "Today",
+        width: 1290,
+        height: 2262,
+      },
+      {
+        src: "/projects/woredrobe/closet-marketplace.jpg",
+        alt: "Woredrobe closet marketplace listing a jacket, trousers, and a t-shirt",
+        caption: "Closet marketplace",
+        width: 1290,
+        height: 2619,
+      },
+      {
+        src: "/projects/woredrobe/shoppable-look.jpg",
+        alt: "Woredrobe shoppable look preview of a black polo with a Create My Look button",
+        caption: "Shoppable look",
+        width: 1290,
+        height: 2540,
+      },
+      {
+        src: "/projects/woredrobe/pro.jpg",
+        alt: "Woredrobe Pro screen listing AI styling, insights, event prep, and calendar planning",
+        caption: "Woredrobe Pro",
+        width: 1080,
+        height: 1920,
+      },
+    ],
     statusDetail:
       "Beta. The iOS app is distributed through TestFlight, with backend services deployed on Railway. This is not presented as a public App Store launch.",
   },
@@ -142,6 +211,9 @@ export const projects: Project[] = [
       "Designed and built a blockchain-connected collectible platform with wallet authentication, USDC sponsorship flows, reward claims, payment verification, and auditable proof systems.",
     role: "Founder / Product Builder / Lead Developer",
     status: "Private Build",
+    liveUrl: "https://pokepads-production.up.railway.app/map",
+    liveNote:
+      "Live production build available for viewing. The project remains an active private build.",
     technologies: [
       "Next.js",
       "TypeScript",
@@ -164,17 +236,23 @@ export const projects: Project[] = [
       "A collectible reward tied to a blockchain payment has to answer three questions: who is claiming it, whether the payment actually happened, and how that event is recorded so it cannot be claimed twice. A wallet button on its own does not answer those questions.",
     roleDetail:
       "I designed and built the product: the Next.js application, wallet authentication, Ed25519 verification, USDC payment flows, idempotent claims, the PostgreSQL ledger, and the proof pages.",
-    built: [
-      "Next.js and TypeScript application",
-      "Solana wallet authentication",
-      "Ed25519 signature verification",
-      "USDC sponsorship and payment flows",
-      "Server-side payment verification",
-      "Idempotent reward claim handling",
-      "PostgreSQL append-only ledger",
-      "Proof pages for claims",
-      "Integrations with external APIs",
+    responsibilities: [
+      "Product direction",
+      "Frontend development",
+      "Backend development",
+      "API integrations",
+      "QA",
     ],
+    built: [
+      "Wallet authentication with Ed25519 verification",
+      "USDC sponsorship and payment flows",
+      "Payment verification on the server",
+      "Reward claims with idempotent handling",
+      "Auditable proof systems",
+      "PostgreSQL persistence through an append-only ledger",
+      "Solana-connected workflows for sign-in, payments, and claims",
+    ],
+    architectureSummary: "Next.js → API → PostgreSQL → Solana and USDC",
     architecture: [
       {
         title: "Next.js app",
@@ -232,6 +310,36 @@ export const projects: Project[] = [
       "Verification belongs on the server when money and rewards meet.",
       "An auditable record is part of the product, not an admin afterthought.",
     ],
+    screenshots: [
+      {
+        src: "/projects/pokeslabs/live-map.png",
+        alt: "PokeSlabs map with GPS locked and five token-ball drops inside a 50 meter radar",
+        caption: "Live collectible map",
+        width: 1290,
+        height: 2796,
+      },
+      {
+        src: "/projects/pokeslabs/collectible-pull.jpg",
+        alt: "Confirmed Token Ball pull of a 2020 Japanese Gengar graded CGC Mint 9",
+        caption: "Confirmed collectible pull",
+        width: 1290,
+        height: 1640,
+      },
+      {
+        src: "/projects/pokeslabs/reward-flow.png",
+        alt: "PokeSlabs official token reward pool, drop counts, and creator-fee split",
+        caption: "Token reward pool",
+        width: 2860,
+        height: 1706,
+      },
+      {
+        src: "/projects/pokeslabs/token-launch.png",
+        alt: "PokeSlabs token launch page with the creator-fee reward path and launch steps",
+        caption: "Token launch",
+        width: 2860,
+        height: 1706,
+      },
+    ],
     statusDetail:
       "Private build. The platform includes wallet authentication, USDC flows, claim handling, and proof pages. It is not presented as a public launch.",
   },
@@ -243,13 +351,14 @@ export const projects: Project[] = [
     role: "Founder / Product Builder / Lead Developer",
     status: "Private Build",
     technologies: [
+      "Next.js",
       "MCP",
       "Streamable HTTP",
       "Authentication",
       "Session management",
       "API tooling",
     ],
-    cardTechnologies: ["MCP", "Streamable HTTP", "Auth", "Sessions"],
+    cardTechnologies: ["Next.js", "MCP", "Streamable HTTP", "Sessions"],
     outcomes: [
       "Authenticated browser dashboard over household data",
       "Maintenance workflows tied to structured home records",
@@ -260,7 +369,16 @@ export const projects: Project[] = [
     problem:
       "Household information is scattered: maintenance, routines, and the state of the home rarely live in one place. An assistant is useful when it can read that structure and take bounded actions through tools, with a real session behind the request.",
     roleDetail:
-      "I built the household platform: the browser dashboard, authentication and sessions, the household and maintenance workflows, the API tooling, and the MCP interface over Streamable HTTP.",
+      "I built the household platform: the Next.js dashboard, authentication and sessions, the household and maintenance workflows, the API tooling, and the authenticated MCP interface over Streamable HTTP.",
+    responsibilities: [
+      "Product direction",
+      "UX",
+      "Frontend development",
+      "Backend development",
+      "AI integration",
+      "QA",
+    ],
+    architectureSummary: "Next.js → session-based API → household data → MCP over Streamable HTTP",
     built: [
       "Browser-based dashboard for household operations",
       "Authentication and session management",
@@ -272,7 +390,7 @@ export const projects: Project[] = [
     ],
     architecture: [
       {
-        title: "Browser dashboard",
+        title: "Next.js dashboard",
         detail: "The household operating surface people use directly.",
       },
       {
@@ -332,19 +450,21 @@ export const projects: Project[] = [
       "Designed an AI-driven system focused on autonomous workflows, structured decision making, and production-safe orchestration.",
     role: "Founder / Product Builder / Lead Developer",
     status: "Private Build",
-    technologies: ["AI agents", "Workflow orchestration"],
-    cardTechnologies: ["AI agents", "Orchestration"],
+    technologies: ["AI workflows", "Verification", "Structured decisions", "Orchestration"],
+    cardTechnologies: ["AI workflows", "Verification", "Orchestration"],
     outcomes: [
       "A defined path for autonomous workflows",
       "Structured decision stages",
       "Orchestration designed around safe operating limits",
     ],
     overview:
-      "Signal Zero is an AI agent project focused on autonomous workflows, structured decision making, and production-safe orchestration. Public detail is intentionally limited to the product intent.",
+      "Signal Zero is an AI agent project focused on AI-driven workflows, verification, structured decision making, and production-safe orchestration. Public detail is intentionally limited to the product intent.",
     problem:
       "Autonomous systems need a decision structure and an orchestration model that can be operated with clear limits. An open-ended loop is difficult to run, explain, or trust.",
     roleDetail:
-      "I designed the system and the product boundaries around autonomous workflows, staged decisions, and orchestration aimed at safe operation. Unreleased internals stay private.",
+      "I designed the system and the product boundaries around AI-driven workflows, verification, staged decisions, and orchestration aimed at safe operation. Unreleased internals stay private.",
+    responsibilities: ["Product direction", "AI integration"],
+    architectureSummary: "Objective → structured decision → orchestrated workflow → limited outcome",
     built: [
       "A workflow structure for autonomous operation",
       "Decision making broken into explicit stages",
@@ -396,6 +516,15 @@ export const projects: Project[] = [
       "Safe operating limits are part of the product design.",
       "Some systems should stay high level in public until they are ready to show.",
     ],
+    screenshots: [
+      {
+        src: "/projects/signal-zero/core-dashboard.png",
+        alt: "Signal Zero core dashboard with director, sentinel, scholar, and analyst agents",
+        caption: "Core dashboard",
+        width: 1881,
+        height: 836,
+      },
+    ],
     statusDetail:
       "Private build. This page describes the product intent only. Internal architecture, prompts, credentials, and unreleased system details are not published here.",
   },
@@ -419,24 +548,48 @@ export const projects: Project[] = [
     outcomes: [
       "Production Next.js platform deployed on Railway",
       "Customer-facing assistants and lead capture in one system",
-      "Workflow automation and demos for restaurant and contractor operations",
+      "Public demos for restaurant, home services, dental, med spa, contractor, and professional services workflows",
     ],
     overview:
       "Desert Digital AI is a production platform for AI-powered customer acquisition and automation aimed at local businesses. It includes customer-facing assistants, lead capture, automated workflows, SEO, analytics, and deployable demos for restaurant and contractor workflows.",
     problem:
       "A local business needs a way to capture a lead, answer with an assistant that fits the business, and run a few workflows that match how the work actually happens. A generic chat widget does not cover that path.",
     roleDetail:
-      "I built the production platform: the Next.js application, OpenAI-powered assistants, lead capture, workflow automation, analytics and SEO foundations, vertical demos, and Railway deployment.",
+      "I built the production platform: the Next.js application, OpenAI-powered assistants, lead capture, workflow automation, analytics and SEO foundations, public vertical demos, and Railway deployment.",
+    responsibilities: [
+      "Product direction",
+      "UX",
+      "Frontend development",
+      "Backend development",
+      "AI integration",
+      "API integrations",
+      "QA",
+      "Deployment",
+    ],
+    liveUrl: "https://desertdigitalai.xyz",
+    demoUrl: "https://desertdigitalai.xyz/demos",
+    publicDemos: [
+      { label: "Restaurant", href: "https://desertdigitalai.xyz/demos/restaurants" },
+      { label: "Home Services", href: "https://desertdigitalai.xyz/demos/home-services" },
+      { label: "Dental", href: "https://desertdigitalai.xyz/demos/dental" },
+      { label: "Med Spa", href: "https://desertdigitalai.xyz/demos/med-spa" },
+      { label: "Contractors", href: "https://desertdigitalai.xyz/demos/contractors" },
+      {
+        label: "Professional Services",
+        href: "https://desertdigitalai.xyz/demos/professional-services",
+      },
+    ],
     built: [
       "Production Next.js application",
       "Assistants powered by OpenAI APIs",
       "Lead capture flows",
       "Automated follow-up workflows",
       "SEO and analytics foundations",
-      "Private demos for restaurant and contractor workflows",
+      "Public vertical demos",
       "Deployable vertical solutions",
       "Railway deployment",
     ],
+    architectureSummary: "Next.js → lead capture → OpenAI → workflow automation",
     architecture: [
       {
         title: "Next.js product",
@@ -469,7 +622,7 @@ export const projects: Project[] = [
         problem:
           "A restaurant and a contractor do not ask the same questions or close work the same way.",
         response:
-          "I built vertical workflows and demos for restaurant and contractor operations instead of a single undifferentiated bot.",
+          "I built public vertical demos for restaurant, home services, dental, med spa, contractor, and professional services workflows instead of a single undifferentiated bot.",
       },
       {
         title: "Lead capture has to meet the assistant",
@@ -491,7 +644,37 @@ export const projects: Project[] = [
       "An assistant needs a job: capture a lead, answer in context, or move the next step forward.",
       "Deployment is part of the product when someone has to see the system running.",
     ],
+    screenshots: [
+      {
+        src: "/projects/desert-digital-ai/homepage.png",
+        alt: "Desert Digital AI homepage",
+        caption: "Homepage",
+        width: 2860,
+        height: 1706,
+      },
+      {
+        src: "/projects/desert-digital-ai/assistant.png",
+        alt: "Desert Digital AI assistant answering a question about local-business websites",
+        caption: "AI assistant",
+        width: 2860,
+        height: 1706,
+      },
+      {
+        src: "/projects/desert-digital-ai/restaurant-demo.png",
+        alt: "Solara Kitchen restaurant demo on Desert Digital AI",
+        caption: "Restaurant demo",
+        width: 2860,
+        height: 1706,
+      },
+      {
+        src: "/projects/desert-digital-ai/home-services.png",
+        alt: "Desert Peak home services demo with the example assistant qualifying an AC request",
+        caption: "Home services demo",
+        width: 2860,
+        height: 1706,
+      },
+    ],
     statusDetail:
-      "Production. The platform runs as a deployed Next.js application on Railway. Private demo details and customer information are not published here.",
+      "Production. The platform runs as a deployed Next.js application on Railway. Public product and demo pages are linked here. Private customer information is not published.",
   },
 ];

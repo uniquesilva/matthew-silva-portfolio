@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { ArchitectureFlow } from "@/components/architecture-flow";
 import { Container } from "@/components/container";
+import { ProjectLinks } from "@/components/project-links";
 import type { Project } from "@/data/projects";
 import { getProject, getProjects } from "@/lib/projects";
 
@@ -63,6 +65,9 @@ function ProjectStudy({ project }: { project: Project }) {
           <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent">
             {project.status}
           </p>
+          {project.distribution ? (
+            <p className="mt-3 text-sm text-ink">Distribution: {project.distribution}</p>
+          ) : null}
           <h1 className="mt-4 font-serif text-5xl tracking-tight text-ink sm:text-6xl">
             {project.name}
           </h1>
@@ -73,6 +78,12 @@ function ProjectStudy({ project }: { project: Project }) {
             </span>
             <span className="mt-2 block">{project.role}</span>
           </p>
+          <ProjectLinks project={project} />
+          {project.liveNote ? (
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-soft">
+              {project.liveNote}
+            </p>
+          ) : null}
         </header>
 
         <div className="mt-12">
@@ -82,15 +93,84 @@ function ProjectStudy({ project }: { project: Project }) {
           <StudySection title="Problem">
             <p>{project.problem}</p>
           </StudySection>
-          <StudySection title="My role">
+          <StudySection title="My Role">
             <p>{project.roleDetail}</p>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {project.responsibilities.map((item) => (
+                <li
+                  key={item}
+                  className="rounded-full border border-line bg-paper px-3 py-1 text-sm text-ink"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
           </StudySection>
-          <StudySection title="What I built">
+          <StudySection title="What I Built">
             <ul className="list-disc space-y-2 pl-5">
               {project.built.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
+          </StudySection>
+          {project.publicDemos && project.publicDemos.length > 0 ? (
+            <StudySection title="Public demos">
+              <ul className="grid gap-2 sm:grid-cols-2">
+                {project.publicDemos.map((demo) => (
+                  <li key={demo.href}>
+                    <a
+                      href={demo.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex min-h-11 items-center text-ink underline decoration-line underline-offset-4 hover:decoration-accent"
+                    >
+                      {demo.label}
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </StudySection>
+          ) : null}
+          {project.screenshots && project.screenshots.length > 0 ? (
+            <StudySection title="Product">
+              <ul
+                className={`grid gap-6 ${
+                  project.screenshots.length > 1
+                    ? project.screenshots.some((shot) => shot.height > shot.width)
+                      ? "lg:grid-cols-2"
+                      : "sm:grid-cols-2"
+                    : ""
+                }`}
+              >
+                {project.screenshots.map((shot) => (
+                  <li key={shot.src} className="min-w-0">
+                    <figure className={shot.height > shot.width ? "mx-auto w-full max-w-sm" : undefined}>
+                      <div className="overflow-hidden rounded-2xl border border-line bg-paper">
+                        <Image
+                          src={shot.src}
+                          alt={shot.alt}
+                          width={shot.width}
+                          height={shot.height}
+                          sizes={
+                            shot.height > shot.width
+                              ? "(min-width: 640px) 384px, 100vw"
+                              : "(min-width: 768px) 720px, 100vw"
+                          }
+                          className="h-auto w-full object-contain"
+                        />
+                      </div>
+                      {shot.caption ? (
+                        <figcaption className="mt-2 text-sm text-ink-soft">{shot.caption}</figcaption>
+                      ) : null}
+                    </figure>
+                  </li>
+                ))}
+              </ul>
+            </StudySection>
+          ) : null}
+          <StudySection title="Architecture">
+            <p className="text-ink">{project.architectureSummary}</p>
           </StudySection>
           <StudySection title="Technical approach">
             <ArchitectureFlow steps={project.architecture} />
